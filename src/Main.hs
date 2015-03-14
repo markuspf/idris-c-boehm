@@ -11,12 +11,12 @@ import IRTS.CodegenEmpty
 import System.Environment
 import System.Exit
 
-import Paths_idris_emptycg
+import Paths_idris_c_boehm
 
 data Opts = Opts { inputs :: [FilePath],
                    output :: FilePath }
 
-showUsage = do putStrLn "Usage: idris-emptycg <ibc-files> [-o <output-file>]"
+showUsage = do putStrLn "Usage: idris-c-boehm <ibc-files> [-o <output-file>]"
                exitWith ExitSuccess
 
 getOpts :: IO Opts
@@ -31,7 +31,7 @@ cg_main :: Opts -> Idris ()
 cg_main opts = do elabPrims
                   loadInputs (inputs opts) Nothing
                   mainProg <- elabMain
-                  ir <- compile (Via "emptycg") (output opts) mainProg
+                  ir <- compile (Via "c-boehm") (output opts) mainProg
                   runIO $ codegenEmpty ir
 
 main :: IO ()
